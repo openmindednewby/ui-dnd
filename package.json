@@ -1,6 +1,6 @@
 {
   "name": "@dloizides/ui-dnd",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Move items between lists by mouse, long-press or keyboard. Generic provider, drop list and drag item for React Native Web, built on dnd-kit.",
   "keywords": [
     "react",
