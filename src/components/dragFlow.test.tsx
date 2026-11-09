@@ -61,7 +61,7 @@ function Board(props: Partial<DragProviderProps> & { canDragCard?: boolean }): R
       {...provider}
     >
       <DropList id="a" testID="list-a">
-        <DragItem id="card" accessibilityLabel="card-name" canDrag={canDragCard} testID="card">
+        <DragItem id="card" accessibilityLabel="card-name" accessibilityHint="card-hint" canDrag={canDragCard} testID="card">
           <Text>card body</Text>
         </DragItem>
       </DropList>
@@ -259,7 +259,7 @@ describe('DragItem', () => {
     const renderOrphan = (): unknown =>
       render(
         <DragProvider labels={labels} onMove={jest.fn()} renderOverlay={() => null}>
-          <DragItem id="x" accessibilityLabel="x">
+          <DragItem id="x" accessibilityLabel="x" accessibilityHint="x-hint">
             <Text>x</Text>
           </DragItem>
         </DragProvider>,

@@ -40,6 +40,7 @@ export interface DragItemState {
 export interface DragItemProps {
   id: string;
   accessibilityLabel: string;
+  accessibilityHint: string;
   canDrag?: boolean;
   children: Slot<DragItemState>;
   style?: StyleProp<ViewStyle>;

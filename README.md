@@ -6,7 +6,7 @@ Move items between lists by mouse, touch long-press or keyboard. Built on `@dnd-
 <DragProvider labels={labels} onMove={(itemId, from, to) => move(itemId, to)} canDrop={canDrop} renderOverlay={(id) => <Card id={id} />}>
   <DropList id="open">
     {({ isOver }) => (
-      <DragItem id="42" accessibilityLabel={name} canDrag={isOpen}>
+      <DragItem id="42" accessibilityLabel={name} accessibilityHint={hint} canDrag={isOpen}>
         {({ isDragging }) => <Card id="42" dimmed={isDragging} />}
       </DragItem>
     )}

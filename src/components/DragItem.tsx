@@ -1,5 +1,5 @@
 import { useDraggable } from '@dnd-kit/core';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import type { ReactElement } from 'react';
 import { StyleSheet, View } from 'react-native';
 import type { ViewProps, ViewStyle } from 'react-native';
@@ -13,7 +13,15 @@ const styles = StyleSheet.create({
 });
 
 /** One item that can be lifted; a nested control keeps its own keys and clicks. */
-export function DragItem({ id, accessibilityLabel, canDrag = true, children, style, testID }: DragItemProps): ReactElement {
+export function DragItem({
+  id,
+  accessibilityLabel,
+  accessibilityHint,
+  canDrag = true,
+  children,
+  style,
+  testID,
+}: DragItemProps): ReactElement {
   const listId = useContext(ListIdContext);
   if (listId === null) throw new Error('DragItem must be rendered inside a DropList');
   const roleDescription = useContext(RoleDescriptionContext);
@@ -23,14 +31,19 @@ export function DragItem({ id, accessibilityLabel, canDrag = true, children, sty
     disabled: !canDrag,
     attributes: { roleDescription },
   });
+  const labelledElement = useRef<HTMLElement | null>(null);
   const attachNode = useCallback(
     (node: View | null) => {
       const element = node as unknown as HTMLElement | null;
+      labelledElement.current = element;
       setNodeRef(element);
       setActivatorNodeRef(element);
     },
     [setNodeRef, setActivatorNodeRef],
   );
+  useEffect(() => {
+    labelledElement.current?.setAttribute('aria-description', accessibilityHint);
+  }, [accessibilityHint]);
   const dragProps = (canDrag ? { ...attributes, ...listeners } : {}) as ViewProps;
 
   return (
