@@ -1,0 +1,47 @@
+import { useDraggable } from '@dnd-kit/core';
+import { useCallback, useContext } from 'react';
+import type { ReactElement } from 'react';
+import { StyleSheet, View } from 'react-native';
+import type { ViewProps, ViewStyle } from 'react-native';
+
+import { ListIdContext, RoleDescriptionContext } from '../dragContexts';
+import type { DragItemProps } from '../types';
+import { renderSlot } from '../utils/renderSlot';
+
+const styles = StyleSheet.create({
+  draggable: { cursor: 'grab', userSelect: 'none', WebkitTouchCallout: 'none' } as unknown as ViewStyle,
+});
+
+/** One item that can be lifted; a nested control keeps its own keys and clicks. */
+export function DragItem({ id, accessibilityLabel, canDrag = true, children, style, testID }: DragItemProps): ReactElement {
+  const listId = useContext(ListIdContext);
+  if (listId === null) throw new Error('DragItem must be rendered inside a DropList');
+  const roleDescription = useContext(RoleDescriptionContext);
+  const { attributes, listeners, setNodeRef, setActivatorNodeRef, isDragging } = useDraggable({
+    id,
+    data: { listId },
+    disabled: !canDrag,
+    attributes: { roleDescription },
+  });
+  const attachNode = useCallback(
+    (node: View | null) => {
+      const element = node as unknown as HTMLElement | null;
+      setNodeRef(element);
+      setActivatorNodeRef(element);
+    },
+    [setNodeRef, setActivatorNodeRef],
+  );
+  const dragProps = (canDrag ? { ...attributes, ...listeners } : {}) as ViewProps;
+
+  return (
+    <View
+      {...dragProps}
+      aria-label={accessibilityLabel}
+      ref={attachNode}
+      style={[canDrag ? styles.draggable : undefined, style]}
+      testID={testID}
+    >
+      {renderSlot(children, { isDragging })}
+    </View>
+  );
+}

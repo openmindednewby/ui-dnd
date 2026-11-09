@@ -1,0 +1,112 @@
+{
+  "name": "@dloizides/ui-dnd",
+  "version": "0.0.0",
+  "description": "Move items between lists by mouse, long-press or keyboard. Generic provider, drop list and drag item for React Native Web, built on dnd-kit.",
+  "keywords": [
+    "react",
+    "react-native-web",
+    "drag-and-drop",
+    "dnd-kit",
+    "kanban",
+    "accessibility",
+    "dloizides"
+  ],
+  "author": "dloizides",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openmindednewby/ui-dnd.git"
+  },
+  "homepage": "https://github.com/openmindednewby/ui-dnd#readme",
+  "bugs": {
+    "url": "https://github.com/openmindednewby/ui-dnd/issues"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "react-native": "./dist/index.native.js",
+  "exports": {
+    ".": {
+      "react-native": {
+        "types": "./dist/index.native.d.ts",
+        "default": "./dist/index.native.js"
+      },
+      "browser": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsup",
+    "build:watch": "tsup --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "security:audit": "npm audit --audit-level=high",
+    "deps:outdated": "npm outdated || exit 0",
+    "deps:unused": "npx depcheck --ignores \"@types/jest,@types/node,@types/react,@types/react-dom,rimraf,react-native,react-native-web\"",
+    "deps:licenses": "npx license-checker --production --onlyAllow \"MIT;Apache-2.0;ISC;BSD-2-Clause;BSD-3-Clause;0BSD;Unlicense;CC0-1.0;CC-BY-3.0;CC-BY-4.0;Python-2.0;BlueOak-1.0.0\" && npx license-checker --development --onlyAllow \"MIT;Apache-2.0;ISC;BSD-2-Clause;BSD-3-Clause;0BSD;Unlicense;CC0-1.0;CC-BY-3.0;CC-BY-4.0;Python-2.0;BlueOak-1.0.0;LGPL-3.0;LGPL-3.0-only;LGPL-3.0-or-later\"",
+    "deps:health": "npm run deps:outdated && npm run deps:unused",
+    "prepublishOnly": "npm run clean && npm run build && npm run test",
+    "version": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "react-native": ">=0.79.0"
+  },
+  "dependencies": {
+    "@dloizides/rn-web-hooks": "^1.5.0",
+    "@dnd-kit/core": "6.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.19.32",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-native": "0.81.5",
+    "react-native-web": "^0.21.0",
+    "rimraf": "^5.0.0",
+    "ts-jest": "^29.1.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
+  }
+}
