@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
   draggable: { cursor: 'grab', userSelect: 'none', WebkitTouchCallout: 'none' } as unknown as ViewStyle,
 });
 
+const ITEM_ROLE = 'group';
+
 /** One item that can be lifted; a nested control keeps its own keys and clicks. */
 export function DragItem({
   id,
@@ -29,7 +31,7 @@ export function DragItem({
     id,
     data: { listId },
     disabled: !canDrag,
-    attributes: { roleDescription },
+    attributes: { role: ITEM_ROLE, roleDescription },
   });
   const labelledElement = useRef<HTMLElement | null>(null);
   const attachNode = useCallback(
@@ -44,7 +46,7 @@ export function DragItem({
   useEffect(() => {
     labelledElement.current?.setAttribute('aria-description', accessibilityHint);
   }, [accessibilityHint]);
-  const dragProps = (canDrag ? { ...attributes, ...listeners } : {}) as ViewProps;
+  const dragProps = (canDrag ? { ...attributes, ...listeners } : { role: ITEM_ROLE }) as ViewProps;
 
   return (
     <View

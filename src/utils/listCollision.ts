@@ -12,7 +12,6 @@ export function createListCollision(guard: ListGuard): CollisionDetection {
       (list) => fromListId !== undefined && guard(itemId, fromListId, String(list.id)),
     );
     const scoped = { ...args, droppableContainers: allowed };
-    const underPointer = pointerWithin(scoped);
-    return underPointer.length > 0 ? underPointer : rectIntersection(scoped);
+    return args.pointerCoordinates === null ? rectIntersection(scoped) : pointerWithin(scoped);
   };
 }
